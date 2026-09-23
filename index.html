@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  HONDA PHILIPPINES — CIVIC LANDING PAGE (unofficial demo/tutorial)
+  Plain HTML + a small amount of CSS. No frameworks, no build step.
+  Accessibility choices are called out in comments marked "A11Y:".
+
+  NOTE: This is a fan-made practice project for learning HTML, not the
+  real honda.com.ph site. It uses the Honda wordmark as plain text
+  only (no trademarked wing logo graphic) and says clearly in the
+  footer that it isn't official. Specs shown are publicly listed
+  figures — confirm current pricing with a Honda dealer before
+  treating them as final.
+  =====================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Honda Civic — Honda Philippines (unofficial demo)</title>
+
+  <style>
+    :root {
+      --bg: #101012;
+      --panel: #1b1b1e;
+      --line: #333335;
+      --text: #f2f2f0;
+      --muted: #b7b7bb;
+      --accent: #e4002b; /* Honda red */
+      --accent-text: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      font-size: 18px;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: var(--accent); }
+    h1, h2, h3 { line-height: 1.2; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      background: var(--accent);
+      color: var(--accent-text);
+      padding: 10px 16px;
+      z-index: 100;
+    }
+    .skip-link:focus { left: 10px; top: 10px; }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0;
+    }
+    header .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    header .logo {
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+    }
+    header .logo .red { color: var(--accent); }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    nav a { text-decoration: none; }
+    nav a:hover, nav a:focus { text-decoration: underline; }
+
+    section { padding: 50px 0; border-bottom: 1px solid var(--line); }
+
+    .hero p.lede { color: var(--muted); max-width: 55ch; }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+      border: 2px solid var(--accent);
+    }
+    .btn-primary { background: var(--accent); color: var(--accent-text); }
+    .btn-secondary { background: transparent; color: var(--text); }
+
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 20px;
+      flex: 1 1 250px;
+    }
+    .card h3 { margin-top: 0; }
+    .card p { color: var(--muted); margin-bottom: 0; }
+
+    figure {
+      margin: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      flex: 1 1 250px;
+    }
+    figcaption { padding: 10px 12px; color: var(--muted); font-size: 0.9rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    caption { text-align: left; color: var(--muted); margin-bottom: 10px; }
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    th { color: var(--accent); }
+
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-width: 500px;
+    }
+    label { display: block; margin-bottom: 6px; font-weight: bold; }
+    .hint { font-weight: normal; color: var(--muted); font-size: 0.85rem; }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font: inherit;
+    }
+    fieldset {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 12px;
+    }
+    legend { font-weight: bold; padding: 0 6px; }
+    .choice { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+    .choice label { font-weight: normal; margin: 0; }
+
+    footer { padding: 30px 0; color: var(--muted); font-size: 0.85rem; }
+    footer p { margin: 6px 0; }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header>
+    <div class="wrap">
+      <p class="logo">HONDA <span class="red">PHILIPPINES</span></p>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#specs">Specs</a></li>
+          <li><a href="#testdrive">Test Drive</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="hero">
+      <div class="wrap">
+        <p class="hint">Honda Civic — 11th Generation</p>
+        <h1>Refined. Turbocharged. Ready.</h1>
+        <p class="lede">
+          A sedan that pairs a turbocharged engine with the full Honda
+          Sensing safety suite, standard across every variant. Sharp
+          styling outside, more room and more tech inside.
+        </p>
+        <p>
+          <a href="#testdrive" class="btn btn-primary">Book a test drive</a>
+          <a href="#specs" class="btn btn-secondary">View specs</a>
+        </p>
+        <img src="https://placehold.co/700x400/1b1b1e/e4002b?text=Honda+Civic"
+             alt="Honda Civic sedan, front three-quarter view">
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <h2>Why drivers choose the Civic</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h3>1.5L VTEC Turbo</h3>
+            <p>A turbocharged engine paired with a CVT, tuned for smooth power delivery in city and highway driving.</p>
+          </div>
+          <div class="card">
+            <h3>Honda Sensing, standard</h3>
+            <p>Collision mitigation braking, adaptive cruise control, and lane keeping come standard on every variant.</p>
+          </div>
+          <div class="card">
+            <h3>Wireless Apple CarPlay & Android Auto</h3>
+            <p>The center console connects to your phone without cables, alongside a fully digital instrument cluster.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="wrap">
+        <h2>Gallery</h2>
+        <div class="card-grid">
+          <figure>
+            <img src="https://placehold.co/350x250/1b1b1e/b7b7bb?text=Exterior" alt="Honda Civic exterior side view">
+            <figcaption>Exterior</figcaption>
+          </figure>
+          <figure>
+            <img src="https://placehold.co/350x250/1b1b1e/b7b7bb?text=Interior" alt="Honda Civic interior and dashboard">
+            <figcaption>Interior</figcaption>
+          </figure>
+          <figure>
+            <img src="https://placehold.co/350x250/1b1b1e/b7b7bb?text=Rear+View" alt="Honda Civic rear view">
+            <figcaption>Rear view</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="specs">
+      <div class="wrap">
+        <h2>Specifications</h2>
+        <table>
+          <caption>Honda Civic — publicly listed specifications</caption>
+          <thead>
+            <tr>
+              <th scope="col">Part</th>
+              <th scope="col">Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Body type</td><td>5-seater sedan</td></tr>
+            <tr><td>Engine</td><td>1.5L VTEC Turbo</td></tr>
+            <tr><td>Transmission</td><td>CVT</td></tr>
+            <tr><td>Length</td><td>4,678 mm</td></tr>
+            <tr><td>Width</td><td>1,802 mm</td></tr>
+            <tr><td>Height</td><td>1,415 mm</td></tr>
+            <tr><td>Ground clearance</td><td>134 mm</td></tr>
+            <tr><td>Wheels</td><td>16"–17" alloy</td></tr>
+            <tr><td>Safety</td><td>Honda Sensing suite, standard on all variants</td></tr>
+            <tr><td>Variants</td><td>V Turbo CVT Honda Sensing, RS Turbo CVT Honda Sensing</td></tr>
+            <tr><td>SRP</td><td>From ₱1,583,000 (varies by variant; confirm with your dealer)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="testdrive">
+      <div class="wrap">
+        <h2>Book a test drive</h2>
+        <p>This sends your details to a participating Honda dealer near you.</p>
+
+        <form action="/submit-testdrive" method="post">
+
+          <div>
+            <label for="fullname">Full name</label>
+            <input type="text" id="fullname" name="fullname" required aria-required="true">
+          </div>
+
+          <div>
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" required aria-required="true">
+          </div>
+
+          <div>
+            <label for="phone">Mobile number <span class="hint">(optional)</span></label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+
+          <div>
+            <label for="testdate">Preferred test-drive date</label>
+            <input type="date" id="testdate" name="testdate">
+          </div>
+
+          <div>
+            <label for="dealer">Nearest Honda dealer</label>
+            <select id="dealer" name="dealer">
+              <option value="">Choose a branch</option>
+              <option value="makati">Honda Makati</option>
+              <option value="cebu">Honda Cebu</option>
+              <option value="davao">Honda Davao</option>
+            </select>
+          </div>
+
+          <fieldset>
+            <legend>Variant</legend>
+            <div class="choice">
+              <input type="radio" id="variant-v" name="variant" value="v-turbo" checked>
+              <label for="variant-v">V Turbo CVT Honda Sensing</label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="variant-rs" name="variant" value="rs-turbo">
+              <label for="variant-rs">RS Turbo CVT Honda Sensing</label>
+            </div>
+          </fieldset>
+
+          <div>
+            <label for="notes">Notes for your dealer <span class="hint">(optional)</span></label>
+            <textarea id="notes" name="notes" rows="4"></textarea>
+          </div>
+
+          <div class="choice">
+            <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+            <label for="newsletter">Send me Honda Philippines updates</label>
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary">Submit request</button>
+            <button type="reset" class="btn btn-secondary">Clear form</button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>Unofficial fan-made page, built as an HTML learning exercise.</strong></p>
+      <p>Not affiliated with, endorsed by, or representing Honda Cars Philippines Inc. or Honda Motor Co., Ltd. "Honda" and "Civic" are trademarks of their respective owner. Specs shown are publicly listed figures — confirm current pricing and availability with an official Honda dealer.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
